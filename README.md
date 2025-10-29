@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project is a lightweight demo version of a full-stack e-commerce app built with Next.js and Strapi.
+It uses a static JSON file as a data source instead of a live Strapi backend — allowing you to preview the frontend easily without hosting the backend.
 
 ## Getting Started
 
@@ -19,6 +20,22 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+💡 About This Version
+
+Frontend built with Next.js + React
+
+Product data loaded from a local JSON file
+
+No backend connection required
+
+Perfect for portfolio and demo purposes
+
+🧠 Full Project
+
+This demo is part of a full-stack project built with Next.js (frontend) and Strapi (backend).
+🔗 You can view the full project source here:
+👉 https://github.com/nser-said/Footwear-Commerce-Basic
 
 ## Learn More
 
