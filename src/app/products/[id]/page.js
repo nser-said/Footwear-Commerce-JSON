@@ -18,14 +18,14 @@ export default function ProductDetails() {
 
   return (
     <main dir="rtl" className="p-6 md:p-10 ">
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 ">
-        <div className="w-64 h-64 md:w-72 md:h-72 mt-4 p-3">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
+        <div className="relative w-full max-w-[300px] aspect-square">
           <Image
             src={product.image}
             alt={product.name}
-            width={288}
-            height={288}
-            className="w-full h-full object-cover rounded-xl shadow-sm"
+            fill
+            sizes="(max-width: 768px) 100vw, 300px"
+            className="object-contain rounded-xl shadow-sm"
             priority={true}
           />
         </div>
