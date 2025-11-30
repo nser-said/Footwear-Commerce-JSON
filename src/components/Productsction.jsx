@@ -1,108 +1,72 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-export default function Home() {
-  const [products, setProducts] = useState([]);
+export default function ProductsSection({ products = [] }) {
   const [hovered, setHovered] = useState(null);
 
-  useEffect(() => {
-    fetch("/data/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data.products));
-  }, []);
-
   return (
-    <main
-      style={{
-        direction: "rtl",
-        textAlign: "right",
-        padding: "30px",
-        backgroundColor: "#f5f6f7",
-      }}
-    >
-      <h1 style={{ marginBottom: "25px" }}>المنتجات الجديدة</h1>
+    <section className="py-12 bg-gray-50 dark:bg-black/10" dir="rtl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-right">
+          المنتجات الجديدة
+        </h2>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-          gap: "20px",
-        }}
-      >
-        {products.map((shoe) => (
-          <div
-            key={shoe.id}
-            onMouseEnter={() => setHovered(shoe.id)}
-            onMouseLeave={() => setHovered(null)}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "15px",
-              padding: "15px",
-              textAlign: "center",
-              backgroundColor: "#fff",
-              boxShadow:
-                hovered === shoe.id
-                  ? "0 8px 25px rgba(0,0,0,0.12)"
-                  : "0 2px 8px rgba(0,0,0,0.05)",
-              transform:
-                hovered === shoe.id ? "translateY(-8px)" : "translateY(0px)",
-              transition: "all 0.3s ease",
-              cursor: "pointer",
-            }}
-          >
-            <Link
-              href={`/products/${shoe.id}`}
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-                display: "block",
-              }}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {products.map((shoe) => (
+            <div
+              key={shoe.id}
+              onMouseEnter={() => setHovered(shoe.id)}
+              onMouseLeave={() => setHovered(null)}
+              className={`
+                bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700
+                transition-all duration-300 ease-in-out cursor-pointer
+                ${hovered === shoe.id ? "shadow-xl -translate-y-2" : "shadow-sm hover:shadow-md"}
+              `}
             >
-              <img
-                src={shoe.image}
-                alt={shoe.name}
-                style={{
-                  width: "100%",
-                  height: "200px",
-                  objectFit: "cover",
-                  borderRadius: "10px",
-                  transform:
-                    hovered === shoe.id ? "scale(1.05)" : "scale(1.0)",
-                  transition: "transform 0.3s ease",
-                }}
-              />
-              <h3
-                style={{
-                  marginTop: "10px",
-                  color: hovered === shoe.id ? "#0d46f2" : "#222",
-                  transition: "color 0.3s ease",
-                }}
-              >
-                {shoe.name}
-              </h3>
-              <p
-                style={{
-                  color: "#555",
-                  margin: "5px 0",
-                  fontWeight: "500",
-                }}
-              >
-                {shoe.price} {shoe.currency}
-              </p>
-              <h2
-                style={{
-                  fontSize: "15px",
-                  color: "#0d46f2",
-                  marginTop: "8px",
-                }}
-              >
-                عرض التفاصيل
-              </h2>
-            </Link>
-          </div>
-        ))}
+              <Link href={`/products/${shoe.id}`} className="block h-full">
+                <div className="relative overflow-hidden rounded-xl aspect-[4/3] mb-4">
+                  <Image
+                    src={shoe.image}
+                    alt={shoe.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className={`
+                      object-cover transition-transform duration-500 ease-in-out
+                      ${hovered === shoe.id ? "scale-110" : "scale-100"}
+                    `}
+                  />
+                </div>
+
+                <div className="text-right">
+                  <h3
+                    className={`text-lg font-bold mb-1 transition-colors duration-300 ${hovered === shoe.id ? "text-primary" : "text-gray-900 dark:text-white"
+                      }`}
+                  >
+                    {shoe.name}
+                  </h3>
+
+                  <p className="text-gray-500 dark:text-gray-400 font-medium mb-3">
+                    {shoe.price} {shoe.currency}
+                  </p>
+
+                  <div className="flex items-center justify-end">
+                    <span
+                      className={`
+                        text-sm font-bold transition-colors duration-300
+                        ${hovered === shoe.id ? "text-primary" : "text-gray-400"}
+                      `}
+                    >
+                      عرض التفاصيل ←
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
-    </main>
+    </section>
   );
 }
